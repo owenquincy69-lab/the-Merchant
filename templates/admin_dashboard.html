@@ -1,42 +1,232 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Product Manager | The Merchant</title>
-</head>
-<body>
-  <h1>The Merchant — Product Manager</h1>
-  {% if message %}<p>{{ message }}</p>{% endif %}
-  <p><a href="/admin/products/new">Add a product</a></p>
-  <p><a href="/">View storefront</a></p>
+{% extends "dashboard_base.html" %}
 
-  <form method="post" action="/admin/logout">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-    <button type="submit">Log out</button>
-  </form>
+{% block title %}Admin dashboard{% endblock %}
+{% block body_class %}admin-dashboard{% endblock %}
+{% block sidebar_label %}STORE MANAGEMENT{% endblock %}
+{% block breadcrumb %}ADMIN WORKSPACE{% endblock %}
+{% block page_heading %}Store overview{% endblock %}
+{% block user_role %}Administrator{% endblock %}
 
-  <table>
-    <thead>
-      <tr>
-        <th>Product</th><th>Category</th><th>Price</th>
-        <th>Stock</th><th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for product in products %}
-      <tr>
-        <td>{{ product.name }}</td>
-        <td>{{ product.category }}</td>
-        <td>KSh {{ "%.2f"|format(product.price) }}</td>
-        <td>{{ product.stock }}</td>
-        <td>{{ "Published" if product.is_active else "Hidden" }}</td>
-      </tr>
-      {% else %}
-      <tr><td colspan="5">No products yet.</td></tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</body>
-</html>
+{% block sidebar_nav %}
+<a class="sidebar-link is-active" href="/admin">
+    <span class="nav-icon">▦</span><span>Overview</span>
+</a>
+<a class="sidebar-link" href="/admin/products">
+    <span class="nav-icon">◇</span><span>Products & stock</span>
+</a>
+<a class="sidebar-link" href="/admin/orders">
+    <span class="nav-icon">▤</span><span>Orders</span>
+</a>
+<a class="sidebar-link" href="/admin/customers">
+    <span class="nav-icon">♙</span><span>Customers</span>
+</a>
+<a class="sidebar-link" href="/admin/referrals">
+    <span class="nav-icon">↗</span><span>Referrals & rewards</span>
+</a>
+<a class="sidebar-link" href="/admin/transactions">
+    <span class="nav-icon">◉</span><span>Transactions</span>
+</a>
+<a class="sidebar-link" href="/admin/settings">
+    <span class="nav-icon">⚙</span><span>Store settings</span>
+</a>
+{% endblock %}
+
+{% block content %}
+<section class="welcome-row">
+    <div>
+        <span class="eyebrow">YOUR STORE, AT A GLANCE</span>
+        <h2>
+            Good to see you{% if current_user is defined and current_user and current_user.name %}, {{ current_user.name.split(' ')[0] }}{% endif %}.
+        </h2>
+        <p>Review store performance and manage your operations.</p>
+    </div>
+    <a class="button button-primary" href="/admin/products/new">＋ Add product</a>
+</section>
+
+<section class="stats-grid stats-grid-four">
+    <article class="stat-card">
+        <div class="stat-top">
+            <span class="stat-icon icon-green">↗</span>
+            <span class="stat-label">Sales revenue</span>
+        </div>
+        <strong class="stat-value">
+            {% if stats is defined and stats and stats.sales_revenue is defined %}
+                KSh {{ "{:,.2f}".format(stats.sales_revenue|float) }}
+            {% else %}—{% endif %}
+        </strong>
+        <span class="stat-foot">Recorded sales</span>
+    </article>
+
+    <article class="stat-card">
+        <div class="stat-top">
+            <span class="stat-icon icon-sand">▤</span>
+            <span class="stat-label">Orders</span>
+        </div>
+        <strong class="stat-value">
+            {{ stats.total_orders if stats is defined and stats and stats.total_orders is defined else '—' }}
+        </strong>
+        <span class="stat-foot">Orders recorded by the store</span>
+    </article>
+
+    <article class="stat-card">
+        <div class="stat-top">
+            <span class="stat-icon icon-lilac">♙</span>
+            <span class="stat-label">Customers</span>
+        </div>
+        <strong class="stat-value">
+            {{ stats.total_customers if stats is defined and stats and stats.total_customers is defined else '—' }}
+        </strong>
+        <span class="stat-foot">Registered accounts</span>
+    </article>
+
+    <article class="stat-card">
+        <div class="stat-top">
+            <span class="stat-icon icon-peach">▧</span>
+            <span class="stat-label">Products</span>
+        </div>
+        <strong class="stat-value">
+            {{ stats.total_products if stats is defined and stats and stats.total_products is defined else '—' }}
+        </strong>
+        <span class="stat-foot">Products in your catalogue</span>
+    </article>
+</section>
+
+<section class="admin-overview-grid">
+    <article class="panel">
+        <div class="panel-heading">
+            <div>
+                <span class="eyebrow">STORE HEALTH</span>
+                <h3>Inventory snapshot</h3>
+            </div>
+            <a class="text-link" href="/admin/products">Manage products ↗</a>
+        </div>
+
+        <div class="inventory-summary">
+            <div class="inventory-metric">
+                <span class="inventory-dot dot-green"></span>
+                <div>
+                    <strong>{{ stats.in_stock_products if stats is defined and stats and stats.in_stock_products is defined else '—' }}</strong>
+                    <small>In stock</small>
+                </div>
+            </div>
+            <div class="inventory-metric">
+                <span class="inventory-dot dot-amber"></span>
+                <div>
+                    <strong>{{ stats.low_stock_products if stats is defined and stats and stats.low_stock_products is defined else '—' }}</strong>
+                    <small>Low stock</small>
+                </div>
+            </div>
+            <div class="inventory-metric">
+                <span class="inventory-dot dot-red"></span>
+                <div>
+                    <strong>{{ stats.out_of_stock_products if stats is defined and stats and stats.out_of_stock_products is defined else '—' }}</strong>
+                    <small>Out of stock</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="inventory-note">
+            <span>ⓘ</span>
+            <span>Inventory counts must come from your current product records.</span>
+        </div>
+    </article>
+
+    <article class="panel">
+        <div class="panel-heading">
+            <div>
+                <span class="eyebrow">GET THINGS DONE</span>
+                <h3>Management shortcuts</h3>
+            </div>
+        </div>
+
+        <div class="admin-shortcuts">
+            <a href="/admin/products/new">
+                <span class="shortcut-icon">＋</span>
+                <span><strong>Create a product</strong><small>Add an item to your catalogue</small></span>
+                <span class="action-arrow">↗</span>
+            </a>
+            <a href="/admin/orders">
+                <span class="shortcut-icon">▤</span>
+                <span><strong>Review orders</strong><small>Manage fulfilment and status</small></span>
+                <span class="action-arrow">↗</span>
+            </a>
+            <a href="/admin/referrals">
+                <span class="shortcut-icon">↗</span>
+                <span><strong>Review referrals</strong><small>Verify qualifying rewards</small></span>
+                <span class="action-arrow">↗</span>
+            </a>
+        </div>
+    </article>
+</section>
+
+<section class="panel table-panel">
+    <div class="panel-heading table-panel-heading">
+        <div>
+            <span class="eyebrow">RECENT ACTIVITY</span>
+            <h3>Latest orders</h3>
+        </div>
+
+        <div class="table-actions">
+            <label class="search-field">
+                <span>⌕</span>
+                <input id="adminOrderSearch" type="search" placeholder="Search orders..." aria-label="Search orders">
+            </label>
+            <a class="text-link" href="/admin/orders">All orders ↗</a>
+        </div>
+    </div>
+
+    <div class="table-scroll">
+        <table class="data-table" id="adminOrdersTable">
+            <thead>
+                <tr>
+                    <th>Order</th>
+                    <th>Customer</th>
+                    <th>Date</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if recent_orders is defined and recent_orders %}
+                {% for order in recent_orders %}
+                <tr>
+                    <td><strong>{{ order.order_number if order.order_number is defined else ('#' ~ order.id) }}</strong></td>
+                    <td>{{ order.customer_name if order.customer_name is defined else '—' }}</td>
+                    <td>{{ order.created_at.strftime('%d %b %Y') if order.created_at is defined and order.created_at else '—' }}</td>
+                    <td>
+                        {% if order.total is defined %}
+                            KSh {{ "{:,.2f}".format(order.total|float) }}
+                        {% else %}—{% endif %}
+                    </td>
+                    <td><span class="status-pill">{{ order.status if order.status is defined else 'Unknown' }}</span></td>
+                    <td><a class="table-action-link" href="/admin/orders/{{ order.id }}">Review ↗</a></td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="6" class="empty-table-cell">
+                        <strong>No orders to show yet</strong>
+                        <span>Recorded orders will appear here.</span>
+                    </td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+        <p class="search-empty-message" id="adminOrderSearchEmpty" hidden>No orders match that search.</p>
+    </div>
+</section>
+
+<section class="admin-safety-note">
+    <span class="safety-icon">✓</span>
+    <div>
+        <strong>Keep financial actions auditable</strong>
+        <p>Deposits, withdrawals, refunds and referral rewards should be processed through authenticated backend actions with permission checks and audit records.</p>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script defer src="/static/js/admin-dashboard.js"></script>
+{% endblock %}
