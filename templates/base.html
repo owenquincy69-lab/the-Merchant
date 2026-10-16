@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#173d32">
+    <meta name="description" content="Discover your next favorite at The Merchant.">
+    <title>{% block title %}The Merchant{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/site.css') }}">
+    <script src="{{ url_for('static', path='/js/store.js') }}" defer></script>
+</head>
+<body>
+    <div class="announcement">Thoughtfully selected finds. Everyday value.</div>
+
+    <header class="site-header">
+        <a class="brand" href="/" aria-label="The Merchant home">
+            <span class="brand-mark">M.</span>
+            <span>THE MERCHANT<small>DISCOVER SOMETHING GOOD</small></span>
+        </a>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+
+        <nav class="main-nav" id="mainNav">
+            <a href="/">Shop</a>
+            {% if user %}
+                {% if user.role == 'admin' %}
+                    <a href="/admin">Admin dashboard</a>
+                {% else %}
+                    <a href="/dashboard">My account</a>
+                {% endif %}
+                <form action="/logout" method="post" class="inline-form">
+                    <button class="nav-button" type="submit">Sign out</button>
+                </form>
+            {% else %}
+                <a href="/login">Sign in</a>
+                <a class="nav-cta" href="/register">Join us</a>
+            {% endif %}
+            <button type="button" class="cart-trigger" id="cartTrigger">
+                Bag <span id="cartCount">0</span>
+            </button>
+        </nav>
+    </header>
+
+    {% if message %}
+        <div class="notice" role="status">{{ message }}</div>
+    {% endif %}
+
+    <main>{% block content %}{% endblock %}</main>
+
+    <footer class="site-footer">
+        <div>
+            <a class="brand footer-brand" href="/">THE MERCHANT</a>
+            <p>Good finds for everyday living.</p>
+        </div>
+        <div class="footer-links">
+            <a href="/">Shop</a>
+            <a href="/register">Create an account</a>
+            <a href="/login">Sign in</a>
+        </div>
+        <p class="copyright">© {{ 2026 }} The Merchant. All rights reserved.</p>
+    </footer>
+
+    <dialog id="cartDialog" class="cart-dialog">
+        <div class="cart-heading">
+            <div><span class="eyebrow">YOUR SELECTION</span><h2>Your bag</h2></div>
+            <button type="button" class="icon-button" id="closeCart" aria-label="Close cart">✕</button>
+        </div>
+        <div id="cartItems" class="cart-items"></div>
+        <div class="cart-summary">
+            <span>Subtotal</span><strong id="cartTotal">KSh 0</strong>
+        </div>
+        <p class="muted small">Delivery charges, if applicable, are confirmed separately.</p>
+        <form method="post" action="/checkout" id="checkoutForm">
+            <input type="hidden" name="cart" id="cartPayload" value="[]">
+            <button class="button button-dark full-width" type="submit" id="checkoutButton">Proceed to order</button>
+        </form>
+        <p class="small muted">Placing an order does not process a payment. Payment integration must be configured separately.</p>
+    </dialog>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>
