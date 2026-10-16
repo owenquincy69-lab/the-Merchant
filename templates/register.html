@@ -1,0 +1,25 @@
+
+{% extends "base.html" %}
+{% block title %}Join The Merchant{% endblock %}
+{% block content %}
+<section class="auth-layout">
+    <div class="auth-art">
+        <span class="eyebrow">A GOOD PLACE TO START</span>
+        <h1>Discover more.<br>Share more.</h1>
+        <p>Create your account to keep track of orders and share your own referral link.</p>
+    </div>
+    <div class="auth-panel">
+        <span class="eyebrow">BECOME A MEMBER</span>
+        <h2>Make yourself at home.</h2>
+        <p class="muted">A few details and you're in.</p>
+        <form action="/register" method="post" class="form-stack">
+            <label>Full name<input type="text" name="name" required minlength="2" maxlength="100" autocomplete="name"></label>
+            <label>Email address<input type="email" name="email" required autocomplete="email"></label>
+            <label>Password<input type="password" name="password" required minlength="10" autocomplete="new-password"><small>Use at least 10 characters.</small></label>
+            <label>Referral code <span class="muted">(optional)</span><input type="text" name="referral" value="{{ request.query_params.get('ref', '') }}" placeholder="Enter a friend's code"></label>
+            <button class="button button-dark full-width" type="submit">Create account <span>→</span></button>
+        </form>
+        <p class="auth-switch">Already a member? <a href="/login">Sign in</a></p>
+    </div>
+</section>
+{% endblock %}
