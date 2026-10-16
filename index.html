@@ -1,57 +1,183 @@
- 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#173d32">
-    <meta name="description" content="Discover quality products at The Merchant.">
-    <title>The Merchant | Online Store</title>
-    <style>
-        * { box-sizing: border-box; }
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f8f5ed;
-            color: #173d32;
-        }
-        header {
-            background: #173d32;
-            color: #fff;
-            padding: 22px 7%;
-        }
-        header h1 { margin: 0; }
-        main {
-            max-width: 900px;
-            margin: 70px auto;
-            padding: 24px;
-            text-align: center;
-        }
-        h2 { font-size: 2rem; }
-        p { line-height: 1.7; }
-        a {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 13px 24px;
-            background: #173d32;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-        }
-    </style>
+    <meta name="description" content="Discover quality products at The Merchant. Shop a curated collection with prices in Kenyan shillings.">
+
+    <title>The Merchant | Discover Your Next Favorite</title>
+
+    <link rel="stylesheet" href="./style.css">
+    <script src="./index.js" defer></script>
 </head>
+
 <body>
-    <header>
-        <h1>The Merchant</h1>
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="./index.html" aria-label="The Merchant home">
+                <span class="brand-mark">M</span>
+                <span>The Merchant</span>
+            </a>
+
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                type="button"
+                aria-label="Toggle navigation"
+                aria-expanded="false"
+                aria-controls="mainNav"
+            >
+                ☰
+            </button>
+
+            <nav class="main-nav" id="mainNav" aria-label="Main navigation">
+                <a href="./index.html" class="nav-link active">Home</a>
+                <a href="#shop" class="nav-link">Shop</a>
+                <a href="#categories" class="nav-link">Categories</a>
+                <a href="#about" class="nav-link">About</a>
+
+                <a
+                    class="nav-link dashboard-link"
+                    id="customerDashboardLink"
+                    href="./customer_dashboard.html"
+                >
+                    My Dashboard
+                </a>
+
+                <a
+                    class="nav-link admin-link"
+                    id="adminDashboardLink"
+                    href="./admin_login.html"
+                >
+                    Admin
+                </a>
+            </nav>
+        </div>
     </header>
+
     <main>
-        <h2>Discover Your Next Favorite</h2>
-        <p>Explore quality products and discover something you'll love.</p>
-        <a href="#products">Explore the Store</a>
-        <section id="products">
-            <h2>Our Store</h2>
-            <p>Our product collection will appear here.</p>
+        <section class="hero">
+            <div class="hero-content">
+                <p class="eyebrow">A BETTER WAY TO SHOP</p>
+
+                <h1>Discover your next favorite.</h1>
+
+                <p class="hero-description">
+                    Thoughtfully selected products, great value, and a shopping
+                    experience designed around you.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="#shop" class="btn btn-primary">Explore Products</a>
+                    <a href="#categories" class="btn btn-secondary">Browse Categories</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="shop-section" id="shop">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">OUR COLLECTION</p>
+                    <h2>Find something you love</h2>
+                    <p>Explore our available products.</p>
+                </div>
+            </div>
+
+            <div class="shop-controls">
+                <label class="search-box" for="searchInput">
+                    <span aria-hidden="true">⌕</span>
+                    <input
+                        type="search"
+                        id="searchInput"
+                        placeholder="Search products..."
+                        autocomplete="off"
+                    >
+                </label>
+
+                <label class="sort-control" for="sortSelect">
+                    <span>Sort:</span>
+                    <select id="sortSelect">
+                        <option value="default">Featured</option>
+                        <option value="price-low">Price: low to high</option>
+                        <option value="price-high">Price: high to low</option>
+                        <option value="name">Name: A to Z</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="category-list" id="categories" aria-label="Product categories">
+                <button class="category-btn active" type="button" data-category="all">
+                    All Products
+                </button>
+                <button class="category-btn" type="button" data-category="fashion">
+                    Fashion
+                </button>
+                <button class="category-btn" type="button" data-category="electronics">
+                    Electronics
+                </button>
+                <button class="category-btn" type="button" data-category="home">
+                    Home & Living
+                </button>
+                <button class="category-btn" type="button" data-category="beauty">
+                    Beauty
+                </button>
+                <button class="category-btn" type="button" data-category="accessories">
+                    Accessories
+                </button>
+            </div>
+
+            <p class="results-count" id="resultsCount" aria-live="polite">
+                Loading products...
+            </p>
+
+            <div class="product-grid" id="productGrid">
+                <div class="empty-state">
+                    <p>Loading the collection...</p>
+                </div>
+            </div>
+
+            <p class="empty-state" id="emptyState" hidden>
+                No products match your search. Try another keyword or category.
+            </p>
+        </section>
+
+        <section class="about-section" id="about">
+            <div>
+                <p class="eyebrow">WELCOME TO THE MERCHANT</p>
+                <h2>Shopping made simple.</h2>
+            </div>
+
+            <p>
+                We bring together a curated collection of products to help you
+                find what you need. Browse the collection, explore your options,
+                and follow product links to complete your purchase.
+            </p>
+        </section>
+
+        <section class="account-section">
+            <div class="account-card">
+                <h2>Your shopping, in one place</h2>
+                <p>Access your customer dashboard to view your account and shopping activity.</p>
+                <a class="btn btn-primary" href="./customer_dashboard.html">
+                    Open Customer Dashboard
+                </a>
+            </div>
         </section>
     </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <a class="brand footer-brand" href="./index.html">
+                <span class="brand-mark">M</span>
+                <span>The Merchant</span>
+            </a>
+
+            <p>&copy; <span id="currentYear"></span> The Merchant. All rights reserved.</p>
+
+            <a href="./admin_login.html">Administrator access</a>
+        </div>
+    </footer>
 </body>
 </html>
