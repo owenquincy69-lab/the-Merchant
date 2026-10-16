@@ -1,183 +1,89 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#173d32">
-    <meta name="description" content="Discover quality products at The Merchant. Shop a curated collection with prices in Kenyan shillings.">
+{% extends "base.html" %}
+{% block title %}The Merchant | Discover Your Next Favorite{% endblock %}
 
-    <title>The Merchant | Discover Your Next Favorite</title>
+{% block content %}
+<section class="hero">
+    <div class="hero-copy">
+        <span class="eyebrow">THE EVERYDAY EDIT</span>
+        <h1>Find the things<br>that feel <em>just right.</em></h1>
+        <p>A considered collection of useful, beautiful finds for your everyday life.</p>
+        <a class="button button-light" href="#shop">Explore the collection <span>↗</span></a>
+        <div class="hero-note"><span class="status-dot"></span> A little something for every day</div>
+    </div>
+    <div class="hero-image" role="img" aria-label="Curated lifestyle collection">
+        <div class="hero-image-label"><span>THE MERCHANT EDIT</span><strong>Everyday essentials.<br>Elevated.</strong></div>
+    </div>
+    <div class="hero-index">01 — THE COLLECTION</div>
+</section>
 
-    <link rel="stylesheet" href="./style.css">
-    <script src="./index.js" defer></script>
-</head>
+<section class="benefit-strip">
+    <div><span>01</span><strong>Thoughtfully selected</strong><small>Curated everyday finds</small></div>
+    <div><span>02</span><strong>Simple shopping</strong><small>Browse with ease</small></div>
+    <div><span>03</span><strong>Share the discovery</strong><small>Invite friends to join</small></div>
+</section>
 
-<body>
-    <header class="site-header">
-        <div class="header-inner">
-            <a class="brand" href="./index.html" aria-label="The Merchant home">
-                <span class="brand-mark">M</span>
-                <span>The Merchant</span>
-            </a>
+<section class="shop-section section-wrap" id="shop">
+    <div class="section-heading">
+        <div><span class="eyebrow">MADE FOR YOUR EVERYDAY</span><h2>Discover the collection<span class="heading-dot">.</span></h2></div>
+        <p>Useful things. Lovely details.<br>Find your next favorite.</p>
+    </div>
 
-            <button
-                class="menu-toggle"
-                id="menuToggle"
-                type="button"
-                aria-label="Toggle navigation"
-                aria-expanded="false"
-                aria-controls="mainNav"
-            >
-                ☰
-            </button>
+    <form class="shop-tools" method="get" action="/">
+        <label class="search-box">
+            <span aria-hidden="true">⌕</span>
+            <input name="q" type="search" value="{{ search }}" placeholder="Search the collection…" aria-label="Search products">
+        </label>
+        <select name="category" aria-label="Filter by category" onchange="this.form.submit()">
+            <option value="all">All categories</option>
+            {% for category in categories %}
+                <option value="{{ category }}" {% if selected_category == category %}selected{% endif %}>{{ category }}</option>
+            {% endfor %}
+        </select>
+        <button class="button button-outline" type="submit">Search</button>
+    </form>
 
-            <nav class="main-nav" id="mainNav" aria-label="Main navigation">
-                <a href="./index.html" class="nav-link active">Home</a>
-                <a href="#shop" class="nav-link">Shop</a>
-                <a href="#categories" class="nav-link">Categories</a>
-                <a href="#about" class="nav-link">About</a>
+    <div class="category-pills">
+        <a class="{% if selected_category == 'all' %}selected{% endif %}" href="/">All finds</a>
+        {% for category in categories %}
+            <a class="{% if selected_category == category %}selected{% endif %}" href="/?category={{ category|urlencode }}">{{ category }}</a>
+        {% endfor %}
+    </div>
 
-                <a
-                    class="nav-link dashboard-link"
-                    id="customerDashboardLink"
-                    href="./customer_dashboard.html"
-                >
-                    My Dashboard
-                </a>
-
-                <a
-                    class="nav-link admin-link"
-                    id="adminDashboardLink"
-                    href="./admin_login.html"
-                >
-                    Admin
-                </a>
-            </nav>
-        </div>
-    </header>
-
-    <main>
-        <section class="hero">
-            <div class="hero-content">
-                <p class="eyebrow">A BETTER WAY TO SHOP</p>
-
-                <h1>Discover your next favorite.</h1>
-
-                <p class="hero-description">
-                    Thoughtfully selected products, great value, and a shopping
-                    experience designed around you.
-                </p>
-
-                <div class="hero-actions">
-                    <a href="#shop" class="btn btn-primary">Explore Products</a>
-                    <a href="#categories" class="btn btn-secondary">Browse Categories</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="shop-section" id="shop">
-            <div class="section-heading">
-                <div>
-                    <p class="eyebrow">OUR COLLECTION</p>
-                    <h2>Find something you love</h2>
-                    <p>Explore our available products.</p>
-                </div>
-            </div>
-
-            <div class="shop-controls">
-                <label class="search-box" for="searchInput">
-                    <span aria-hidden="true">⌕</span>
-                    <input
-                        type="search"
-                        id="searchInput"
-                        placeholder="Search products..."
-                        autocomplete="off"
-                    >
-                </label>
-
-                <label class="sort-control" for="sortSelect">
-                    <span>Sort:</span>
-                    <select id="sortSelect">
-                        <option value="default">Featured</option>
-                        <option value="price-low">Price: low to high</option>
-                        <option value="price-high">Price: high to low</option>
-                        <option value="name">Name: A to Z</option>
-                    </select>
-                </label>
-            </div>
-
-            <div class="category-list" id="categories" aria-label="Product categories">
-                <button class="category-btn active" type="button" data-category="all">
-                    All Products
+    <div class="product-grid">
+        {% for product in products %}
+        <article class="product-card">
+            <div class="product-image-wrap">
+                {% if product.image_url %}
+                    <img class="product-image" src="{{ product.image_url }}" alt="{{ product.name }}" loading="lazy">
+                {% else %}
+                    <div class="image-placeholder">THE MERCHANT</div>
+                {% endif %}
+                <button class="quick-add" type="button"
+                    data-add-to-cart
+                    data-id="{{ product.id }}"
+                    data-name="{{ product.name }}"
+                    data-price="{{ product.price }}"
+                    data-image="{{ product.image_url }}"
+                    {% if product.stock < 1 %}disabled{% endif %}>
+                    {% if product.stock > 0 %}+ Add to bag{% else %}Out of stock{% endif %}
                 </button>
-                <button class="category-btn" type="button" data-category="fashion">
-                    Fashion
-                </button>
-                <button class="category-btn" type="button" data-category="electronics">
-                    Electronics
-                </button>
-                <button class="category-btn" type="button" data-category="home">
-                    Home & Living
-                </button>
-                <button class="category-btn" type="button" data-category="beauty">
-                    Beauty
-                </button>
-                <button class="category-btn" type="button" data-category="accessories">
-                    Accessories
-                </button>
+                <span class="product-number">TM — {{ "%02d"|format(product.id) }}</span>
             </div>
-
-            <p class="results-count" id="resultsCount" aria-live="polite">
-                Loading products...
-            </p>
-
-            <div class="product-grid" id="productGrid">
-                <div class="empty-state">
-                    <p>Loading the collection...</p>
-                </div>
+            <div class="product-info">
+                <div><span class="product-category">{{ product.category }}</span><h3>{{ product.name }}</h3></div>
+                <strong class="product-price">KSh {{ "{:,.0f}".format(product.price) }}</strong>
             </div>
+            <p class="product-description">{{ product.description }}</p>
+        </article>
+        {% else %}
+        <div class="empty-state"><h3>No finds just yet.</h3><p>Try a different search or category.</p><a href="/" class="button button-dark">View everything</a></div>
+        {% endfor %}
+    </div>
+</section>
 
-            <p class="empty-state" id="emptyState" hidden>
-                No products match your search. Try another keyword or category.
-            </p>
-        </section>
-
-        <section class="about-section" id="about">
-            <div>
-                <p class="eyebrow">WELCOME TO THE MERCHANT</p>
-                <h2>Shopping made simple.</h2>
-            </div>
-
-            <p>
-                We bring together a curated collection of products to help you
-                find what you need. Browse the collection, explore your options,
-                and follow product links to complete your purchase.
-            </p>
-        </section>
-
-        <section class="account-section">
-            <div class="account-card">
-                <h2>Your shopping, in one place</h2>
-                <p>Access your customer dashboard to view your account and shopping activity.</p>
-                <a class="btn btn-primary" href="./customer_dashboard.html">
-                    Open Customer Dashboard
-                </a>
-            </div>
-        </section>
-    </main>
-
-    <footer class="site-footer">
-        <div class="footer-inner">
-            <a class="brand footer-brand" href="./index.html">
-                <span class="brand-mark">M</span>
-                <span>The Merchant</span>
-            </a>
-
-            <p>&copy; <span id="currentYear"></span> The Merchant. All rights reserved.</p>
-
-            <a href="./admin_login.html">Administrator access</a>
-        </div>
-    </footer>
-</body>
-</html>
+<section class="referral-banner">
+    <div><span class="eyebrow">GOOD THINGS ARE BETTER SHARED</span><h2>Found something you love?</h2><p>Invite friends to discover The Merchant. Create an account to get your personal referral link.</p></div>
+    <a class="button button-light" href="/register">Join the community <span>↗</span></a>
+</section>
+{% endblock %}
