@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Product Manager | The Merchant</title>
+</head>
+<body>
+  <h1>The Merchant — Product Manager</h1>
+  {% if message %}<p>{{ message }}</p>{% endif %}
+  <p><a href="/admin/products/new">Add a product</a></p>
+  <p><a href="/">View storefront</a></p>
+
+  <form method="post" action="/admin/logout">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <button type="submit">Log out</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th><th>Category</th><th>Price</th>
+        <th>Stock</th><th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in products %}
+      <tr>
+        <td>{{ product.name }}</td>
+        <td>{{ product.category }}</td>
+        <td>KSh {{ "%.2f"|format(product.price) }}</td>
+        <td>{{ product.stock }}</td>
+        <td>{{ "Published" if product.is_active else "Hidden" }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5">No products yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
