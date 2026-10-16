@@ -1,0 +1,23 @@
+
+{% extends "base.html" %}
+{% block title %}Sign In | The Merchant{% endblock %}
+{% block content %}
+<section class="auth-layout">
+    <div class="auth-art">
+        <span class="eyebrow">WELCOME BACK</span>
+        <h1>Your everyday<br>finds await.</h1>
+        <p>Sign in to view your orders and share your favorite finds.</p>
+    </div>
+    <div class="auth-panel">
+        <span class="eyebrow">YOUR ACCOUNT</span>
+        <h2>Good to see you.</h2>
+        <p class="muted">Enter your details to continue.</p>
+        <form action="/login" method="post" class="form-stack">
+            <label>Email address<input type="email" name="email" required autocomplete="email"></label>
+            <label>Password<input type="password" name="password" required autocomplete="current-password"></label>
+            <button class="button button-dark full-width" type="submit">Sign in <span>→</span></button>
+        </form>
+        <p class="auth-switch">New to The Merchant? <a href="/register">Create an account</a></p>
+    </div>
+</section>
+{% endblock %}
