@@ -1,96 +1,228 @@
- <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Discover quality products at The Merchant. Shop with confidence and earn referral rewards.">
-  <title>The Merchant | Shop Smarter</title>
-  <link rel="stylesheet" href="/static/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#173d32">
+    <meta name="description" content="Discover quality products at The Merchant. Shop a curated collection with prices in Kenyan shillings.">
+    <title>The Merchant | Discover Your Next Favorite</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/main.js" defer></script>
 </head>
 <body>
-  <header class="site-header">
-    <a class="logo" href="/">THE <span>MERCHANT</span></a>
-    <nav>
-      <a href="#shop">Shop</a>
-      <a href="#categories">Categories</a>
-      <a href="#rewards">Referral Rewards</a>
-    </nav>
-    <a class="button" href="#shop">Explore products</a>
-  </header>
+    <div class="announcement">
+        <span>Thoughtfully selected. Fairly priced.</span>
+        <span class="announcement-right">Shopping made simple in Kenya</span>
+    </div>
 
-  <main>
-    <section class="hero">
-      <div class="hero-content">
-        <p class="eyebrow">YOUR NEXT FAVORITE IS HERE</p>
-        <h1>Good finds.<br>Better everyday living.</h1>
-        <p>Discover thoughtful essentials, accessories, and technology for your everyday life.</p>
-        <a class="button" href="#shop">Shop the collection</a>
-      </div>
-    </section>
+    <header class="site-header">
+        <a href="/" class="brand" aria-label="The Merchant home">
+            <span class="brand-mark">M</span>
+            <span class="brand-name">the merchant<span class="brand-dot">.</span>
+                <small>YOUR EVERYDAY MARKETPLACE</small>
+            </span>
+        </a>
 
-    <section id="categories" class="section">
-      <p class="eyebrow">EXPLORE OUR STORE</p>
-      <h2>Shop by category</h2>
-      <div class="category-grid">
-        <a class="category-card" href="#shop">Home & Living</a>
-        <a class="category-card" href="#shop">Personal Care</a>
-        <a class="category-card" href="#shop">Accessories</a>
-        <a class="category-card" href="#shop">Tech Essentials</a>
-      </div>
-    </section>
+        <nav class="main-nav" aria-label="Main navigation">
+            <a class="active" href="/">Home</a>
+            <a href="#categories">Categories</a>
+            <a href="#shop">Shop all</a>
+            <a href="#referral">Refer & earn</a>
+        </nav>
 
-    <section id="shop" class="section">
-      <p class="eyebrow">HANDPICKED FOR YOU</p>
-      <h2>Featured products</h2>
-      <p class="section-intro">Explore a few examples from our collection.</p>
-      <div class="product-grid">
-        <article class="product-card">
-          <div class="product-image">☕</div>
-          <p class="product-category">HOME & LIVING</p>
-          <h3>Ceramic Coffee Mug</h3>
-          <p class="price">KSh 650</p>
-          <button class="button quick-add" data-product="Ceramic Coffee Mug">Add to bag</button>
-        </article>
-        <article class="product-card">
-          <div class="product-image">👜</div>
-          <p class="product-category">ACCESSORIES</p>
-          <h3>Everyday Tote Bag</h3>
-          <p class="price">KSh 950</p>
-          <button class="button quick-add" data-product="Everyday Tote Bag">Add to bag</button>
-        </article>
-        <article class="product-card">
-          <div class="product-image">🧴</div>
-          <p class="product-category">PERSONAL CARE</p>
-          <h3>Daily Care Set</h3>
-          <p class="price">KSh 1,200</p>
-          <button class="button quick-add" data-product="Daily Care Set">Add to bag</button>
-        </article>
-        <article class="product-card">
-          <div class="product-image">🎧</div>
-          <p class="product-category">TECH ESSENTIALS</p>
-          <h3>Wireless Headphones</h3>
-          <p class="price">KSh 2,400</p>
-          <button class="button quick-add" data-product="Wireless Headphones">Add to bag</button>
-        </article>
-      </div>
-      <p id="emptyResults" hidden>No matching products found.</p>
-    </section>
+        <div class="header-actions">
+            <a class="header-shop" href="#shop">Explore collection <span>↗</span></a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        </div>
+    </header>
 
-    <section id="rewards" class="rewards-section">
-      <p class="eyebrow">SHARE THE GOOD FINDS</p>
-      <h2>Earn KSh 50 in referral rewards</h2>
-      <p>When an eligible customer you refer makes a qualifying purchase of at least KSh 300 or a qualifying business-wallet deposit of at least KSh 300, you can earn KSh 50, subject to the referral rules.</p>
-      <p><small>Referral tracking, account balances, and reward payments will be enabled when the backend features are implemented.</small></p>
-    </section>
-  </main>
+    <main>
+        <section class="hero">
+            <div class="hero-copy">
+                <span class="eyebrow"><span class="eyebrow-line"></span> THE GOOD FINDS ARE HERE</span>
+                <h1>Good things.<br>Better <span>living.</span></h1>
+                <p class="hero-description">
+                    Discover everyday essentials and standout finds,
+                    all in one place. A better way to shop starts here.
+                </p>
 
-  <footer>
-    <a class="logo" href="/">THE <span>MERCHANT</span></a>
-    <p>Discover more. Shop with confidence.</p>
-    <p>© <span id="currentYear">2026</span> The Merchant</p>
-  </footer>
+                <div class="hero-actions">
+                    <a href="#shop" class="button button-primary">Explore the collection <span>↗</span></a>
+                    <a href="#categories" class="text-link">Find your category <span>↓</span></a>
+                </div>
 
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="/static/js/main.js"></script>
+                <div class="hero-proof">
+                    <div class="proof-icon">✓</div>
+                    <div>
+                        <strong>Made for everyday life</strong>
+                        <small>Discover products worth bringing home.</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-image-frame">
+                    <img
+                        src="https://images.unsplash.com/photo-1490312278390-ab64016e0aa9?auto=format&fit=crop&w=1200&q=85"
+                        alt="Beautifully styled modern living space"
+                    >
+                    <div class="image-overlay"></div>
+                    <div class="hero-image-label">
+                        <span class="label-kicker">THE MERCHANT EDIT</span>
+                        <strong>Little upgrades.<br>Big difference.</strong>
+                        <a href="#shop">Find your next favorite ↗</a>
+                    </div>
+                    <div class="floating-note">
+                        <span class="floating-note-icon">✳</span>
+                        <span><strong>Worth discovering</strong><small>Your next great find awaits.</small></span>
+                    </div>
+                </div>
+                <div class="hero-number">01 <span>/ DISCOVER MORE</span></div>
+            </div>
+        </section>
+
+        <section class="benefit-strip" aria-label="Shopping benefits">
+            <div><span class="benefit-icon">✳</span><span><strong>Curated finds</strong><small>Selected for everyday life</small></span></div>
+            <div><span class="benefit-icon">◈</span><span><strong>Clear pricing</strong><small>Prices shown in KSh</small></span></div>
+            <div><span class="benefit-icon">↗</span><span><strong>Share the good finds</strong><small>Earn through referrals</small></span></div>
+        </section>
+
+        <section class="categories-section section-wrap" id="categories">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">A PLACE TO START</span>
+                    <h2>Shop by <span>category.</span></h2>
+                </div>
+                <p>Find what you're looking for, or discover something unexpected.</p>
+            </div>
+
+            <div class="category-grid">
+                <a class="category-card category-home" href="#shop" data-category-link="Home">
+                    <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=700&q=80" alt="Home decor and interiors" loading="lazy">
+                    <span class="category-shade"></span>
+                    <span class="category-content"><small>MAKE YOURSELF AT HOME</small><strong>Home & living</strong><span class="category-arrow">↗</span></span>
+                </a>
+                <a class="category-card category-style" href="#shop" data-category-link="Fashion">
+                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=700&q=80" alt="Fashion and clothing" loading="lazy">
+                    <span class="category-shade"></span>
+                    <span class="category-content"><small>YOUR STYLE, YOUR WAY</small><strong>Fashion</strong><span class="category-arrow">↗</span></span>
+                </a>
+                <a class="category-card category-tech" href="#shop" data-category-link="Electronics">
+                    <img src="https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=700&q=80" alt="Electronics and technology" loading="lazy">
+                    <span class="category-shade"></span>
+                    <span class="category-content"><small>SMARTER EVERYDAY</small><strong>Electronics</strong><span class="category-arrow">↗</span></span>
+                </a>
+                <a class="category-card category-more" href="#shop" data-category-link="Beauty">
+                    <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=700&q=80" alt="Beauty and personal care" loading="lazy">
+                    <span class="category-shade"></span>
+                    <span class="category-content"><small>A LITTLE SELF-CARE</small><strong>Beauty & care</strong><span class="category-arrow">↗</span></span>
+                </a>
+            </div>
+        </section>
+
+        <section class="shop-section" id="shop">
+            <div class="section-wrap">
+                <div class="section-heading product-heading">
+                    <div>
+                        <span class="eyebrow">THE COLLECTION</span>
+                        <h2>Good finds, <span>right here.</span></h2>
+                        <p class="section-subtitle">Explore what's available in our store.</p>
+                    </div>
+                    <div class="search-box">
+                        <span aria-hidden="true">⌕</span>
+                        <input type="search" id="searchInput" placeholder="Search products..." aria-label="Search products">
+                    </div>
+                </div>
+
+                <div class="shop-toolbar">
+                    <div class="category-filters" aria-label="Filter products by category">
+                        <button class="category-btn active" type="button" data-category="all">All products</button>
+                        <button class="category-btn" type="button" data-category="Home">Home & living</button>
+                        <button class="category-btn" type="button" data-category="Fashion">Fashion</button>
+                        <button class="category-btn" type="button" data-category="Electronics">Electronics</button>
+                        <button class="category-btn" type="button" data-category="Beauty">Beauty</button>
+                    </div>
+                    <span class="product-count">{{ products|length }} product{% if products|length != 1 %}s{% endif %}</span>
+                </div>
+
+                <div class="product-grid" id="productGrid">
+                    {% for product in products %}
+                    <article class="product-card"
+                        data-name="{{ product.name|lower }}"
+                        data-category="{{ product.category|lower }}">
+                        <a class="product-image" href="#referral" aria-label="Learn more about {{ product.name }}">
+                            {% if product.image_path %}
+                            <img src="{{ product.image_path }}" alt="{{ product.name }}" loading="lazy">
+                            {% else %}
+                            <div class="product-placeholder"><span>✳</span><small>THE MERCHANT</small></div>
+                            {% endif %}
+                            <span class="product-badge">Available</span>
+                        </a>
+                        <div class="product-info">
+                            <span class="product-category">{{ product.category }}</span>
+                            <h3>{{ product.name }}</h3>
+                            <p class="product-description">{{ product.description or "A great find for your everyday needs." }}</p>
+                            <div class="product-bottom">
+                                <strong class="product-price">KSh {{ "{:,.2f}".format(product.price) }}</strong>
+                                <span class="stock-label">{{ product.stock }} in stock</span>
+                            </div>
+                        </div>
+                    </article>
+                    {% else %}
+                    <div class="empty-products">
+                        <span class="empty-icon">✳</span>
+                        <h3>Something good is coming.</h3>
+                        <p>Our collection is being prepared. Check back soon for new finds.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <section class="referral-section section-wrap" id="referral">
+            <div class="referral-panel">
+                <div class="referral-art" aria-hidden="true">
+                    <span class="orbit orbit-one"></span>
+                    <span class="orbit orbit-two"></span>
+                    <span class="referral-star">✳</span>
+                    <span class="referral-coins">KSh<br><strong>50</strong></span>
+                </div>
+                <div class="referral-copy">
+                    <span class="eyebrow">GOOD FINDS ARE BETTER SHARED</span>
+                    <h2>Share a little.<br><span>Earn a little.</span></h2>
+                    <p>Invite friends to discover The Merchant. Our referral program is designed to reward qualifying referrals.</p>
+                    <div class="referral-reward"><span>REWARD</span><strong>KSh 50</strong><small>per qualifying referral</small></div>
+                    <p class="referral-terms">Qualifying purchases or deposits must meet the program's minimum requirements. Terms apply.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="closing-banner">
+            <span class="eyebrow">YOUR NEXT FAVORITE IS OUT THERE</span>
+            <h2>Come for a look.<br>Leave with a <span>great find.</span></h2>
+            <a href="#shop" class="button button-light">Browse the collection <span>↗</span></a>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-main">
+            <a href="/" class="brand footer-brand">
+                <span class="brand-mark">M</span>
+                <span class="brand-name">the merchant<span class="brand-dot">.</span><small>YOUR EVERYDAY MARKETPLACE</small></span>
+            </a>
+            <p>Good finds for real life.<br>Discover something worth bringing home.</p>
+            <div class="footer-links">
+                <a href="#shop">Shop</a>
+                <a href="#categories">Categories</a>
+                <a href="#referral">Refer & earn</a>
+                <a href="/admin/login">Admin</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© {{ business_name }}. All rights reserved.</span>
+            <span>Made for everyday life in Kenya.</span>
+        </div>
+    </footer>
 </body>
 </html>
