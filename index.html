@@ -1,0 +1,96 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Discover quality products at The Merchant. Shop with confidence and earn referral rewards.">
+  <title>The Merchant | Shop Smarter</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="/">THE <span>MERCHANT</span></a>
+    <nav>
+      <a href="#shop">Shop</a>
+      <a href="#categories">Categories</a>
+      <a href="#rewards">Referral Rewards</a>
+    </nav>
+    <a class="button" href="#shop">Explore products</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">YOUR NEXT FAVORITE IS HERE</p>
+        <h1>Good finds.<br>Better everyday living.</h1>
+        <p>Discover thoughtful essentials, accessories, and technology for your everyday life.</p>
+        <a class="button" href="#shop">Shop the collection</a>
+      </div>
+    </section>
+
+    <section id="categories" class="section">
+      <p class="eyebrow">EXPLORE OUR STORE</p>
+      <h2>Shop by category</h2>
+      <div class="category-grid">
+        <a class="category-card" href="#shop">Home & Living</a>
+        <a class="category-card" href="#shop">Personal Care</a>
+        <a class="category-card" href="#shop">Accessories</a>
+        <a class="category-card" href="#shop">Tech Essentials</a>
+      </div>
+    </section>
+
+    <section id="shop" class="section">
+      <p class="eyebrow">HANDPICKED FOR YOU</p>
+      <h2>Featured products</h2>
+      <p class="section-intro">Explore a few examples from our collection.</p>
+      <div class="product-grid">
+        <article class="product-card">
+          <div class="product-image">☕</div>
+          <p class="product-category">HOME & LIVING</p>
+          <h3>Ceramic Coffee Mug</h3>
+          <p class="price">KSh 650</p>
+          <button class="button quick-add" data-product="Ceramic Coffee Mug">Add to bag</button>
+        </article>
+        <article class="product-card">
+          <div class="product-image">👜</div>
+          <p class="product-category">ACCESSORIES</p>
+          <h3>Everyday Tote Bag</h3>
+          <p class="price">KSh 950</p>
+          <button class="button quick-add" data-product="Everyday Tote Bag">Add to bag</button>
+        </article>
+        <article class="product-card">
+          <div class="product-image">🧴</div>
+          <p class="product-category">PERSONAL CARE</p>
+          <h3>Daily Care Set</h3>
+          <p class="price">KSh 1,200</p>
+          <button class="button quick-add" data-product="Daily Care Set">Add to bag</button>
+        </article>
+        <article class="product-card">
+          <div class="product-image">🎧</div>
+          <p class="product-category">TECH ESSENTIALS</p>
+          <h3>Wireless Headphones</h3>
+          <p class="price">KSh 2,400</p>
+          <button class="button quick-add" data-product="Wireless Headphones">Add to bag</button>
+        </article>
+      </div>
+      <p id="emptyResults" hidden>No matching products found.</p>
+    </section>
+
+    <section id="rewards" class="rewards-section">
+      <p class="eyebrow">SHARE THE GOOD FINDS</p>
+      <h2>Earn KSh 50 in referral rewards</h2>
+      <p>When an eligible customer you refer makes a qualifying purchase of at least KSh 300 or a qualifying business-wallet deposit of at least KSh 300, you can earn KSh 50, subject to the referral rules.</p>
+      <p><small>Referral tracking, account balances, and reward payments will be enabled when the backend features are implemented.</small></p>
+    </section>
+  </main>
+
+  <footer>
+    <a class="logo" href="/">THE <span>MERCHANT</span></a>
+    <p>Discover more. Shop with confidence.</p>
+    <p>© <span id="currentYear">2026</span> The Merchant</p>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="/static/js/main.js"></script>
+</body>
+</html>
